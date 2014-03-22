@@ -17,6 +17,8 @@ void draw () {
   line(0, height/2, width, height/2);
   stick1.showStick();
   stick2.showStick();
+  stick1.changePosition();
+  stick2.changePosition();
   timer.checkTime();
    
     }
@@ -25,6 +27,8 @@ void callback () {
   stick2.showStick();
   timer.callIn(500);
 }    
+
+
     
     
 
