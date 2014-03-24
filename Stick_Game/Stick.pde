@@ -2,19 +2,21 @@ public class Stick {
   float stickX;
   float stickY;
   int score;
+
   int t = 3000;
 
   //constructor
   public Stick ( ) {
-    stickX = int(random(25, width - 25));
-    stickY = int(random(25, height/2 - 25));
+    //    stickX = int(random(25, width - 25));
+    //    stickY = int(random(25, height/2 - 25));
     score = 0;
-
   }
 
   void showStick () {
-    background(#8E0A0A);
-    stroke(0);
+    stickX = int(random(25, width - 25));
+    stickY = int(random(25, height/2 - 25));
+    background(255);
+    strokeWeight(5);
     line(0, height/2, width, height/2);
     fill(0);
     smooth();
@@ -22,16 +24,18 @@ public class Stick {
   }
 
   void changePosition () {
-
-//    if (timer.isFinished()) {
-      background(#8E0A0A);
-      stroke(0);
-      line(0, height/2, width, height/2);
-      fill(0);
-      smooth();
-      ellipse(stickX, stickY, 50, 50);
-//      timer.start();
-//    }
+//
+//    //    if (timer.isFinished()) {
+    stickX = int(random(25, width - 25));
+    stickY = int(random(25, height/2 - 25));
+    background(0, 255, 0);
+    strokeWeight(5);
+    line(0, height/2, width, height/2);
+    fill(0);
+    smooth();
+    ellipse(stickX, stickY, 50, 50);
+    //      timer.start();
+    //    }
   }
 }
 
