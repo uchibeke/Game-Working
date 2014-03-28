@@ -1,50 +1,53 @@
 public class Stick {
   float stickX;
   float stickY;
-  int score;
+  float objectSize;
+  float distance;
+
+  boolean hidden;
 
   int t = 3000;
 
-  //constructor
-  public Stick ( ) {
-    //    stickX = int(random(25, width - 25));
-    //    stickY = int(random(25, height/2 - 25));
-    score = 0;
-  }
-
-  void showStick () {
-    stickX = int(random(25, width - 25));
-    stickY = int(random(25, height/2 - 25));
-    background(255);
-    strokeWeight(5);
-    line(0, height/2, width, height/2);
-    fill(0);
-    smooth();
-    ellipse(stickX, stickY, 50, 50);
+  public Stick (float x, float y, float w) {
+    stickX = x;
+    stickY = y;
+    objectSize = w;
+    hidden = false;
   }
 
   void changePosition () {
-//
-//    //    if (timer.isFinished()) {
-    stickX = int(random(25, width - 25));
-    stickY = int(random(25, height/2 - 25));
-    background(0, 255, 0);
-    strokeWeight(5);
-    line(0, height/2, width, height/2);
+
+    hidden = false;
     fill(0);
     smooth();
-    ellipse(stickX, stickY, 50, 50);
-    //      timer.start();
-    //    }
+    stickX = random(25, width - 25);
+    stickY = random(25, height/2 - 25);
+    
+    //timer.start();
+  }
+  
+  void drawStick()
+  {
+    if(hidden == false)
+    {
+      stroke(0);
+      fill(0);
+      ellipse(stickX, stickY, objectSize, objectSize);
+    }
+  }
+
+  void checkClick () {
+    println("clicked" + millis());
+    float distance = ((height/2) + ((height/2) - stickY)) ;
+    println(distance);
+    println(objectSize/2);
+//    //    if ( mouseY <=   10 + distance || mouseY >= distance - 10) {
+    if ( dist(mouseX,  mouseY, stickX, distance ) < objectSize/2  && hidden == false) {
+      //200 - stickY
+      score++;
+      hidden = true;
+    }
   }
 }
 
-
-
-
-//  void giveScore () {
-//    if ( (mouseY >= (height/2) + ((height/2) - stickY))) || mouseY <=   (10 + ((mouseY = (height/2) + ((height/2) - stickY)))) mouseY >=   (10 - ((mouseY = (height/2) + ((height/2) - stickY)))) {
-//      score ++;
-//    }
-//  }
 

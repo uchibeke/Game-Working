@@ -1,18 +1,18 @@
 public class Hero
 
+
 {
   int x;
-  int y;
+  float y;
   int r;
-  int dx, dy;
+  float dx, dy;
 
   public Hero()
   {
     x = 300;
     y = 475;
     r = 50;
-    dx = 0;
-    dy = 0;
+    dy = 8;
   }
 
   void drawHero()
@@ -20,16 +20,10 @@ public class Hero
     fill(0);
     noStroke();
     ellipse(x, y, r, r);
-    x = x + dx;
+    if(adam.y == 500 && adam.x > 0)
+    onObject = true;
   } 
-
-  void moveLeft()
-  {
-    dx = -3;
-  }
-  void moveRight()
-  {
-    dx = 3;
-  }
 }
+
+  
 
