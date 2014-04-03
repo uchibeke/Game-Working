@@ -36,7 +36,7 @@ int screenHeight;
 
 
 void setup () {
-  screenWidth = 1600;
+  screenWidth = 1800;
   screenHeight =  600;
   size (screenWidth, screenHeight);
   s = "Accuracy and speed are key winning. Show 'em what You've got..." ;
@@ -114,7 +114,6 @@ void draw () {
     stick4.changePosition();
 
     stick5.changePosition();
-    
   }
 
   stick1.drawStick();
@@ -122,12 +121,13 @@ void draw () {
   stick3.drawStick();
   stick4.drawStick();
   stick5.drawStick();
-  
+
+
   if (start == true && millis()<10000) {
-  textSize(20);
-  text( inst, width/4, height-10);
+    textSize(20);
+    text( inst, width/4, height-10);
   }
-    
+
   stroke(255, 0, 0);
   noFill();
   ellipse(errorX, errorY, 50, 50);
