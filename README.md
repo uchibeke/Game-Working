@@ -6,9 +6,9 @@ This contains files for our game.
 I worked with Nigel Swan, Kyle Higel  and Aaron on some part of this.
 
 
-You objective is to balance up the resources in both worlds, dethrone the King and vanish him in a final battle.
+Your objective is to balance up the resources in both worlds, dethrone the King and vanish him in a final battle.
 
-You accomplish this through three mini game. 
+Your accomplish this through three mini games. 
 
 In the first mini game, you collect a life source. In the second, you transfer the life source through a portal and in the third mini game, you break a barricade through series of successive clicks and the finally, you dethrone the king and vanish him.
 
