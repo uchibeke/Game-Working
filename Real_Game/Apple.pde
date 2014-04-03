@@ -23,21 +23,21 @@ class Apple {
       if (y > height) {
         finished = true;
       } 
-      else if(treeScore < 5) {
+      else if(treeScore <= 5) {
         y += speed; 
         speed  *= 1.01;
       }
-      else if (treeScore< 10)
+      else if (treeScore<= 10)
       {
         y += speed; 
         speed  *= 1.02;
       }
-      else if (treeScore< 15)
+      else if (treeScore<= 15)
       {
         y += speed; 
         speed  *= 1.04;
       }
-      else if (treeScore< 20)
+      else if (treeScore<= 20)
       {
         y += speed; 
         speed  *= 1.06;

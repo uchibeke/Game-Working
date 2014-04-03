@@ -1,4 +1,20 @@
-//MainGame
+//Conditionals to change between different mini games and the main game
+boolean mainGame;
+boolean stickGame;
+boolean treeGame;
+boolean treeGameText;
+
+//initializations of variables and Libraries
+
+//Sound Library
+import ddf.minim.*;
+Minim minim;
+AudioPlayer[] player = new AudioPlayer[1];
+
+//Image Library
+PImage stick, tree; 
+
+//MainGame Variables
 Hero adam;
 Ground ground;
 Ground tround;
@@ -10,43 +26,21 @@ boolean onGround;
 int objectdx;
 boolean jumping;
 boolean onObject;
-boolean mainGame;
 
 
+//StickGame Sound variables
+AudioSample stickCorrect;
+AudioSample stickIncorrect;
 
 
-
-
-
-//Nobody Scores 40 Mini Game
-
-//We have the main mecahnics done. We had a challenge getting the click function
-//We have are still working on implementing the mechanic of the agme game accepting clicks
-//and chnaging score.
-
-//initializations of variables
-import ddf.minim.*;
-Minim minim;
-AudioPlayer[] player = new AudioPlayer[1];
-
-PImage stick, tree; 
-
-AudioSample correct;
-AudioSample incorrect;
-
+//stickGame Variables
 Stick stick1, stick2, stick3, stick4, stick5 ;
-//Timer timer;
 String s, inst, chal;
 
 int stickScore;
 int br, bg, bb;
 
-int textColorR, textColorG, textColorB;
-
 boolean start;
-boolean stickGame;
-boolean treeGame;
-boolean treeGameText;
 
 
 int m;
@@ -113,8 +107,8 @@ void setup () {
   player[0] = minim.loadFile("Locally_Sourced.mp3"); // load file in audio player array loadFile ( "FILE NAME");
   println ("song length is approx. " + player[0].length() / 1000 + " s.");
 
-  correct = minim.loadSample( "Correct.mp3", 512  );
-  incorrect = minim.loadSample( "Incorrect.mp3", 512 );
+  stickCorrect = minim.loadSample( "Correct.mp3", 512  );
+  stickIncorrect = minim.loadSample( "Incorrect.mp3", 512 );
 
   stick = loadImage("Stick.png");
 
@@ -311,7 +305,7 @@ void mouseClicked () {
 
   if (stickGame == true) {
     if (start == true) {
-      incorrect.trigger();
+      stickIncorrect.trigger();
       stick1.checkClick() ;
 
       stick2.checkClick();

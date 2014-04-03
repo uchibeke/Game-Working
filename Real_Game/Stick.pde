@@ -47,7 +47,7 @@ public class Stick {
     if ( dist(mouseX,  mouseY, stickX, distance ) < objectSize/2  && hidden == false) {
       //200 - stickY
       stickScore++;
-      correct.trigger();
+      stickCorrect.trigger();
       hidden = true;
     }
   }
