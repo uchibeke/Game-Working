@@ -90,8 +90,8 @@ AudioSample logBreak;
 void setup () {
   //Setting up of the screen
   screenWidth = 700;
-  screenHeight =  700;
-  size (screenWidth, screenHeight);
+  screenHeight =  800;
+  size (displayWidth, displayHeight);
   background (palette[0]);
 
   minim = new Minim(this); // initialaizing minim object
@@ -133,8 +133,8 @@ void setup () {
     //Sound in stickGame
     player[0] = minim.loadFile("Locally_Sourced.mp3", 300); // load file in audio player array loadFile ( "FILE NAME"); 
     //  println ("song length is approx. " + player[0].length() / 1000 + " s.");
-    stickCorrect = minim.loadSample( "Correct.mp3",  512 );
-    stickIncorrect = minim.loadSample( "Incorrect.mp3", 512` );
+    stickCorrect = minim.loadSample( "Correct.mp3", 512 );
+    stickIncorrect = minim.loadSample( "Incorrect.mp3", 512);
   }
 
   //TreeGame
@@ -318,10 +318,6 @@ void draw () {
     for (Apple d: apples) {
       if (bas.checkCatch(d)) {
         treeScore++;
-        d.finished = true;
-      }
-      if (bas.checkCatch(d) == false && d.finished == true) {
-        treeScore--;
         d.finished = true;
       }
 
