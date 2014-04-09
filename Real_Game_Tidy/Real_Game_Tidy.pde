@@ -18,7 +18,7 @@ PImage stick, tree;
 //Color palette setup
 // Darkest to brighter, Last is dark red, second last is white
 color [] darkTheme = {
-  #010712, #13171F, #1C1F26, #24262D, #31353D, #445878, #92CDCF, #EEEFF7, #961227
+  #010712, #13171F, #1C1F26, #24262D, #31353D, #445878, #92CDCF, #EEEFF7, #961227, #BF4904
 };
 color [] palette = darkTheme;
 
@@ -48,12 +48,15 @@ Stick stick1, stick2, stick3, stick4, stick5 ;
 String s, inst, chal;
 int stickScore;
 
+String score1;
+
 //stickGame Conditional to start the game
 boolean start;
 //stickGame Timer
 int m;
 int startTime;
 int errorY, errorX;
+int stickTime;
 
 //StickGame Sound variables
 AudioSample stickCorrect;
@@ -66,6 +69,8 @@ PTimer timer;
 Basket bas;
 int i;
 int treeScore;
+
+int treeTime;
 
 //appleGame sound variables
 AudioSample appleCatch;
@@ -90,8 +95,8 @@ AudioSample logBreak;
 void setup () {
   //Setting up of the screen
   screenWidth = 700;
-  screenHeight =  800;
-  size (displayWidth, displayHeight);
+  screenHeight =  680;
+  size (screenWidth, screenHeight);
   background (palette[0]);
 
   minim = new Minim(this); // initialaizing minim object
@@ -108,7 +113,7 @@ void setup () {
   adam = new Hero();
   tround = new Ground();
   bround = new Ground();
-  welcomeScreen = "CLICKY: The Game";
+  welcomeScreen = "NAKU: The Game";
   //mainGame sound
   player[1] = minim.loadFile("Apple_Dark_Background.wav");
 
@@ -117,7 +122,7 @@ void setup () {
   {
     s = "Accuracy and speed are key winning." ;
     chal = "Transfer Life Source!";
-    inst = "Click on this side of the screen to get objects on opposite the side.";
+    inst = "Click on this part of the screen to get objects from the other half.";
     startTime = 6000;
     errorY = -1000;
     errorX = -1000;
@@ -135,11 +140,15 @@ void setup () {
     //  println ("song length is approx. " + player[0].length() / 1000 + " s.");
     stickCorrect = minim.loadSample( "Correct.mp3", 512 );
     stickIncorrect = minim.loadSample( "Incorrect.mp3", 512);
+
+    score1 =  "Your score is " + stickScore;
+
+    stickTime = 3600;
   }
 
   //TreeGame
   {
-    tree = loadImage("tree.jpg");
+    tree = loadImage("Tree_of_Life.jpg");
     apples = new ArrayList<Apple>();
     bas = new Basket();
     timer = new PTimer();
@@ -151,6 +160,8 @@ void setup () {
     player[2] = minim.loadFile("Tree_Background.wav");
     appleCatch = minim.loadSample( "Apple_Catch.wav", 512 );
     appleMiss = minim.loadSample( "Apple_Miss.wav", 512 );
+
+    treeTime = 4500;
   }
 
   //logGame
@@ -175,6 +186,7 @@ void setup () {
 void draw () {
   //For mainGame
   if (mainGame == true) {
+    background(palette[1]);
     adam.drawHero();
     ground.drawGround();
     tround.drawTround();
@@ -257,13 +269,30 @@ void draw () {
     //text size and color for score following errot ellipse
     textSize(30);
     fill(palette[6]);
-    String score1 = "Score is  " + stickScore;
+
+    score1 =  "Your score is " + stickScore;
     text(score1, errorX+25, errorY+25);
 
     if (!player[0].isPlaying()) {
       player[0].rewind();
       player[0].play();
     }
+
+    //stick_Timer
+    if (stickScore <=0 && start == true) {
+      textSize(20);
+      text( inst, width/30, height-10);
+    }
+    smooth();
+    noFill();
+    rect(10, 50, 200, 10);
+
+    fill(palette[7]);
+    rect(10, 50, stickScore*10, 10);
+    fill (palette[8]);
+    textSize(20);
+
+    text("Time left: " + stickTime/60, 10, 40);
 
     //To increase speed of random change of the figure 
     if (stickScore >= 5)
@@ -272,32 +301,65 @@ void draw () {
     }
     if (stickScore >= 10)
     {
-      startTime = startTime-6;
+      startTime = startTime-10;
     }
     if (stickScore >= 15)
     {
       startTime = startTime-6;
     }
-    if (stickScore >= 20)
-    {
-      startTime = startTime-15;
-    }
-    if (stickScore >= 25)
-    {
-      startTime = startTime-6;
-    }
-    if (stickScore >= 30)
-    {
-      startTime = startTime-6;
-    }
-    if (stickScore >= 35)
+    if (stickScore >= 19)
     {
       startTime = startTime-10;
+      score1 = "You need one more. Score is  " + stickScore;
+      //      text(score1, errorX+25, errorY+25);
     }
-    if (stickScore >= 40)
+    if (stickScore >= 20 && stickTime != 0)
     {
-      startTime = startTime-10;
+      player[0].pause();
+      background(palette[1]);
+      fill (palette[7]);
+      text("You Transferred the Life Source Across", 80, 200);
+      player[0].pause();
+      text("Press space key to start again", 100, 300);
+      if (keyPressed == true) {
+        resetGame();
+      }
     }
+
+
+
+    fill(palette[6]);
+    stickTime -= 1;
+    if (stickTime <= 0 && stickScore < 20) {
+      background(palette[1]);
+      fill (palette[7]);
+      text("Time up!", 250, 200);
+      player[0].pause();
+      text("Press space key to start again", 100, 300);
+      if (keyPressed == true) {
+        resetStickGame();
+        //        mainGame = true;
+        //        logGame = false;
+        //        treeGame = false;
+        //        stickGame = false;
+      }
+    }
+    //    if (stickScore >= 25)
+    //    {
+    //      startTime = startTime-6;
+    //    }
+    //    if (stickScore >= 30)
+    //    {
+    //      startTime = startTime-6;
+    //    }
+    //    if (stickScore >= 35)
+    //    {
+    //      startTime = startTime-10;
+    //    }
+    //    if (stickScore >= 40)
+    //    {
+    //      startTime = startTime-10;
+    //    }
   }
 
 
@@ -329,9 +391,19 @@ void draw () {
     bas.drawBasket();
 
     // draw score
-    fill (244, 200, 50);
-    text(treeScore, 20, 100);
+    //    fill (244, 200, 50);
+    //    text(treeScore, 20, 100);
+    textSize(20);
+    smooth();
+    noFill();
+    rect(10, 50, 200, 10);
 
+    fill(palette[7]);
+    rect(10, 50, treeScore*10, 10);
+    fill (palette[7]);
+    textSize(30);
+
+    text("Time left: " + treeTime/60, 10, height-40);
     if (treeScore == 0) {
       fill (244, 200, 50);
       text("A <= ", 20, 670);
@@ -339,6 +411,7 @@ void draw () {
     }
 
     if (treeScore >= 20) {
+
       background(0);
       fill (244, 0, 50);
       treeGameText = true;
@@ -347,11 +420,46 @@ void draw () {
       {
         text("Success!", 220, 400);
         text("Press any key", 150, 450);
+        if (keyPressed == true) {
+          resetGame();
+        }
       }
     }
     if (!player[2].isPlaying()) {
       player[2].rewind();
       player[2].play();
+    }
+
+    if (stickScore >= 20 && stickTime != 0)
+    {
+      player[0].pause();
+      background(palette[1]);
+      fill (palette[7]);
+      text("You Transferred the Life Source Across", 80, 200);
+      player[0].pause();
+      text("Press space key to start again", 100, 300);
+      if (keyPressed == true) {
+        resetGame();
+      }
+    }
+
+
+
+    fill(palette[6]);
+    treeTime -= 1;
+    if (treeTime <= 0 && treeScore < 20) {
+      background(palette[1]);
+      fill (palette[7]);
+      text("Time up!", 250, 200);
+      player[0].pause();
+      text("Press space key to start again", 100, 300);
+      if (keyPressed == true) {
+        resetTreeGame();
+        //        mainGame = true;
+        //        logGame = false;
+        //        treeGame = false;
+        //        stickGame = false;
+      }
     }
   }
 
@@ -368,13 +476,13 @@ void draw () {
 
     //dead logs
     if (dead >= 1) {
-      fill(palette[0]);
+      fill(palette[1]);
       strokeWeight(1);
-      stroke(palette[3]);
+      stroke(3);
       ellipse(400, height, 100, 100);
     }
     if (dead >= 2) {
-      fill(palette[0]);
+      fill(palette[1]);
       strokeWeight(1);
       stroke(3);
       ellipse(500, height, 100, 100);
@@ -396,7 +504,12 @@ void draw () {
         text("pushed you back!", 100, 250);
         text("Press any key", 150, 350);
         if (keyPressed == true)
-          exit();
+          if (keyPressed == true) {
+            mainGame = true;
+            logGame = false;
+            treeGame = false;
+            stickGame = false;
+          }
       }
       if (logs.get(logI).finished) {
         logs.remove(logI);
@@ -413,8 +526,12 @@ void draw () {
       fill (palette[7]);
       text("Success!", 220, 200);
       text("Press any key", 150, 250);
-      if (keyPressed == true)
-        exit();
+      if (keyPressed == true) {
+        mainGame = true;
+        logGame = false;
+        treeGame = false;
+        stickGame = false;
+      }
     }
 
     logTime -= 1;
@@ -423,8 +540,12 @@ void draw () {
       fill (palette[7]);
       text("Guards arived, RUN!", 40, 200);
       text("Press any key to run", 40, 300);
-      if (keyPressed == true)
-        exit();
+      if (keyPressed == true) {
+        mainGame = true;
+        logGame = false;
+        treeGame = false;
+        stickGame = false;
+      }
     }
   }
 }
@@ -481,46 +602,39 @@ void keyPressed() {
   }
 
   //for mainGame and to swtich between games
-  if (mainGame == true)
-  {
-    if (key == 't' && mainGame == true) {
-      mainGame = false;
-      stickGame = false;
-      logGame = false;
-      treeGame = true;
-    }
-    else if (key == 's' && mainGame == true) {
-      mainGame = false;
-      logGame = false;
-      treeGame = false;
-      stickGame = true;
-    }
-    else if (key == 'l' && mainGame == true) {
-      mainGame = false;
-      treeGame = false;
-      stickGame = false;
-      logGame = true;
-    }
-    if (mainGame == true) {
-      {
-        if (key == CODED) {
-          if (keyCode == LEFT )
-          {
-            walkLeft = true;
-            objectdx = 3;
-          }
-          else if (keyCode == RIGHT )
-          {
-            walkRight = true; 
-            objectdx = -3;
-          }
-          else if (keyCode == UP )
-            jumping = true;
+  //  if (mainGame == true || mainGame !=true || stickGame )
+  //  {
+  if (key == 't') {
+
+    resetTreeGame();
+  }
+  else if (key == 's') {
+
+    resetStickGame();
+  }
+  else if (key == 'l') {
+    resetLogGame();
+  }
+  if (mainGame == true) {
+    {
+      if (key == CODED) {
+        if (keyCode == LEFT )
+        {
+          walkLeft = true;
+          objectdx = 3;
         }
+        else if (keyCode == RIGHT )
+        {
+          walkRight = true; 
+          objectdx = -3;
+        }
+        else if (keyCode == UP )
+          jumping = true;
       }
     }
   }
 }
+
 
 void mousePressed () {
   //for logGame
@@ -570,5 +684,38 @@ void keyReleased() {
       }
     }
   }
+}
+
+void resetGame () {
+  player[0].pause();
+  player[2].pause();
+  setup();
+  draw();
+  mainGame = true;
+}
+
+void resetTreeGame () {
+  player[0].pause();
+  player[1].pause();
+  setup();
+  draw();
+  treeGame = true;
+}
+
+void resetLogGame () {
+  player[1].pause();
+  player[2].pause();
+  player[0].pause();
+  setup();
+  draw();
+  logGame = true;
+}
+
+void resetStickGame () {
+  player[1].pause();
+  player[2].pause();
+  setup();
+  draw();
+  stickGame = true;
 }
 

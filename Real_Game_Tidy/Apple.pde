@@ -12,7 +12,7 @@ class Apple {
   }
 
   void drawApple() {
-    fill(palette[8]);
+    fill(palette[9]);
     strokeWeight(1);
     noStroke();
     ellipse(x, y, 30, 30);

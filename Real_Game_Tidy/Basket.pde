@@ -38,9 +38,9 @@ class Basket {
   void drawBasket() {
     //println("  draw:: " + millis());  
     strokeWeight(1);
-    fill(palette[0]);
+    fill(palette[7]);
     rect(x-70, height-15, 140, 30);
-    stroke(palette[0]);
+    stroke(palette[7]);
     strokeWeight(10);
     line(x-70, height-15, x-90, height-25);
     line(x+70, height-15, x+90, height-25);
