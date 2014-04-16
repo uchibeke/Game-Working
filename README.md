@@ -1,19 +1,20 @@
 Game-Working
 ============
 
-This contains files for our game. 
+This contains files for a game we designed for a Game Design Class. 
 
 I worked with Nigel Swan, Kyle Higel  and Aaron Stewart on some part of this.
 
 
-Your objective is to balance up the resources in both worlds, dethrone the King and vanish him in a final battle.
+In this game, your objective is to balance up the resources in both worlds, dethrone the King and vanish him in a final battle.
 
-Your accomplish this through three mini games. 
+You accomplish this through three mini games. 
 
 In the first mini game, you collect a life source. In the second, you transfer the life source through a portal and in the third mini game, you break a barricade through series of successive clicks and the finally, you dethrone the king and vanish him.
 
+I am focusing on the game that lets you transfer the life sources through the portal to ensure that it is fun and it also ties in greatly to the premise of the game. Read game instructions for more.
 
-I am focusing on the stick game (the game that lets you transfer the life sources through the portal) to ensure that it is fun and it also ties in greatly to the premise of the game.
+I worked on bringing the mini games into one file and completing the final coding of this project. I know whats going on in code for this game like I know my palm ( No, That is an exagertaion).
 
 Feel free to fork the repository and use the code, in parts, for your own work. It will be nice to give credit to us if you use it. 
 
