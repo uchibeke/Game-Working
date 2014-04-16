@@ -24,6 +24,19 @@ Please, try not to use the IDEA to create the same game in a different way or ev
 
 15/014/14
 
+The Good News is that this game won an award for the game with the best
+dramatic elements. This was by nomination and voting by other game
+designers in our game design class. Others who came to playtest the
+games on display also voted.
+
+I know that more work has to be done on this game to make the graphics
+and look more awesome while also keeping it minimalistic but for now,
+here is what we have.
+
+Use part of the code as you please. But please, do not use the complete
+game idea as yours. Ask me any questions you have and please, I welcome
+your feedback. If you want to partner to help make this better, we can
+discuss that. In fact, you are more than welcome to email me.
 
 
 
